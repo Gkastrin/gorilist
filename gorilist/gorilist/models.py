@@ -11,11 +11,11 @@ class Note(models.Model):
 class Task(models.Model):
     title = models.CharField(max_length=250)
     body = models.TextField()
-    note = models.ManyToOneRel(Note, null=True)
+    note = models.ManyToManyField(Note)
     pub_date = models.DateTimeField('date published')
 
 class TaskList(models.Model):
-    task = models.ManyToOneRel(Task, null=True)
+    task = models.ManyToManyField(Task)
     pub_date = models.DateTimeField('date published')
     last_change = models.DateTimeField('latest change')
 
