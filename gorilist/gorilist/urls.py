@@ -21,4 +21,7 @@ urlpatterns = patterns('',
     (r'^notes/$', views.NoteListView.as_view()),
 
 
+    url(r'note/add/$', views.NoteCreate.as_view(), name='note_add'),
+
+
 )
