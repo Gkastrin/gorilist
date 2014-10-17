@@ -36,8 +36,6 @@ class TaskListView(generic.ListView):
 ###### View function for matching and presenting the tasks of a specific Task list, using its id
 def taskspage(request, t_l_id):         # Present a list of all the tasks attached to the specified task list
 
-    #id = 1
-    #print t_l_id
     tasklist = TaskList.objects.get(id=t_l_id)
     result = []
     for task in tasklist.task.all():
@@ -47,8 +45,7 @@ def taskspage(request, t_l_id):         # Present a list of all the tasks attach
          temp_task["body"]=str(task.body)
          temp_task["pub_date"]=str(task.pub_date)
          result.append(temp_task)
-    return render(request, "tasklist_tasks.html", {'result': result})
-    #return HttpResponse(result)
+    return render(request, "tasklist_tasks.html", {'result': result, 't_l_id':t_l_id})
 
 #### View for getting all the notes of the database
 class NoteListView(generic.ListView):
@@ -74,7 +71,7 @@ def notespage(request, t_id):         # Present a list of all the notes attached
         temp_note['pub_date']=str(note.pub_date)
         result.append(temp_note)
 
-    return render(request, "task_notes.html", {'result':result})
+    return render(request, "task_notes.html", {'result':result, 't_id': t_id})
 
 class NoteForm(forms.ModelForm):
     title = forms.CharField(max_length=250)
@@ -87,7 +84,7 @@ class TaskForm(forms.ModelForm):
     title = forms.CharField(max_length=250)
     body = forms.CharField(widget=forms.Textarea)
     note = forms.ModelMultipleChoiceField(queryset=Note.objects.all())
-    pub_date = forms.DateField(widget= SelectDateWidget)
+    pub_date = forms.DateField(widget=SelectDateWidget)
     class Meta:
         model = Task
 
@@ -99,16 +96,44 @@ class TaskListForm(forms.ModelForm):
         model = TaskList
 
 
+def get_task_list_task(request):
+    t_l_id = None
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/new_task_list/')
+    else:
+        form = TaskForm()
+    return render(request, "tasks_add.html", { 'form': form , 't_l_id':t_l_id})
 
-#### View function for creating and saving new note
-def get_note(request):
+
+def get_task_note(request, t_l_id=None):
     if request.method == 'POST':
         form = NoteForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect('/')
+            if t_l_id != None:
+                return HttpResponseRedirect('/new_task/'+t_l_id)
+            else:
+                return HttpResponseRedirect('/new_task/')
     else:
-        form = NoteForm
+        form = NoteForm()
+    return render(request, "notes_add.html", { 'form' : form })
+
+#### View function for creating and saving new note
+def get_note(request, t_id=None):
+    if request.method == 'POST':
+        form = NoteForm(request.POST)
+        if form.is_valid():
+            temp=form.save()
+            if t_id!=None:
+                task=Task.objects.get(id=t_id)
+                task.note.add(temp)
+                return HttpResponseRedirect('/notes/'+t_id)
+            return HttpResponseRedirect('/new_task/')
+    else:
+        form = NoteForm()
     return render(request, "notes_add.html", { 'form' : form })
 
 #### View function for creating and saving new task_list
@@ -123,13 +148,16 @@ def get_task_list(request):
     return render(request, "task_list_add.html", {'form' : form})
 
 #### View function for creating and saving new task
-def get_task(request):
+def get_task(request, t_l_id=None):
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/')
+            temp = form.save()
+            if t_l_id !=None:
+                tasklist = TaskList.objects.get(id=t_l_id)
+                tasklist.task.add(temp)
+                return HttpResponseRedirect('/tasks/'+t_l_id)
+            return HttpResponseRedirect('/new_task_list/')
     else:
         form = TaskForm()
-
-    return render(request, "tasks_add.html", { 'form': form })
+    return render(request, "tasks_add.html", { 'form': form , 't_l_id':t_l_id})

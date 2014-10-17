@@ -13,7 +13,11 @@ urlpatterns = patterns('',
     url(r'^tasks/$', views.TaskListView.as_view(), name='tasks'),
     url(r'^new_task_list/$', views.get_task_list, name='new_tasklist'),
     url(r'^new_task/$', views.get_task, name='new_task'),
-    url(r'^new_note/$', views.get_note, name='new_note'),
+    url(r'^new_task_list_task/$', views.get_task_list_task, name='new_task_list_task'),
+    url(r'^new_task/(?P<t_l_id>\d+)/$', views.get_task, name='new_task'),
+    url(r'^new_task_note/(?P<t_l_id>\d+)$', views.get_task_note, name='new_note'),
+    url(r'^new_task_note/$', views.get_task_note, name='new_task_note'),
+    url(r'^new_note/(?P<t_id>\d+)/$', views.get_note, name='new_note'),
     ####Present the tasks of a specific task_list
     url(r'tasks/(?P<t_l_id>\d+)/$',views.taskspage, name="task_list"),
     ####Present the notes of a specific task

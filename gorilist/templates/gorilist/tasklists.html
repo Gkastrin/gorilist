@@ -1,9 +1,0 @@
-{% block content %}
-    <h2>Task Lists</h2>
-    <ul>
-        {% for list in object_list %}
-            <li><a href="/task_lists" >{{ list.id }}</a></li>
-
-        {% endfor %}
-    </ul>
-{% endblock %}

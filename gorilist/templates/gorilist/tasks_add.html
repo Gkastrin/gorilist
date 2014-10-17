@@ -3,7 +3,12 @@
         <form action=" " method="post">
             {% csrf_token %}
             <table>
-                {{ form.as_table }} <a href="/new_note/" style="text-decoration:none"><input type="button" value="New Note"></a>
+                {{ form.as_table }}
+                {% if t_l_id != None %}
+                    <a href="/new_task_note/{{ t_l_id }}" style="text-decoration:none"><input type="button" value="Add Note"></a>
+                {% else %}
+                    <a href="/new_task_note/" style="text-decoration:none"><input type="button" value="Add Note"></a>
+                {% endif %}
             </table>
             <input type="submit"  value="OK">
         </form>
