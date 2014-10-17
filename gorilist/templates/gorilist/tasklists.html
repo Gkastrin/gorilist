@@ -2,8 +2,7 @@
     <h2>Task Lists</h2>
     <ul>
         {% for list in object_list %}
-            <li>{{ list.id }}</li>
-            <li>{{ list.task.id }}</li>
+            <li><a href="/task_lists" >{{ list.id }}</a></li>
 
         {% endfor %}
     </ul>

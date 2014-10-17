@@ -1,0 +1,9 @@
+{% block content %}
+    <h2>Notes</h2>
+    <ul>
+        {% for note in result %}
+            <li>{{ note.title }} -- id : {{ note.id }}<br>Body : {{ note.body }}<br>Pub_date : {{ note.pub_date }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

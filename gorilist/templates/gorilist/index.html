@@ -1,9 +1,13 @@
+<h2>Task Lists</h2>
 {% if latest_task_list %}
     <ul>
     {% for result_task in latest_task_list %}
-        <li><a href="/polls/{{ result_task.id }}/">{{ result_task }}</a></li>
+        <li>Task List id : <a href="/tasks/{{ result_task.id }}">[{{ result_task.id }}]</a></li>
     {% endfor %}
     </ul>
+    <a href="/new_task_list/" style="text-decoration:none"><input type="button" value="New Task List"></a>
+    <a href="/new_task/" style="text-decoration:none"><input type="button" value="New Task"></a>
+    <a href="/new_note/" style="text-decoration:none"><input type="button" value="New Note"></a>
 {% else %}
     <p>No tasks are available.</p>
 {% endif %}

@@ -8,11 +8,12 @@ class NoteAdmin(admin.ModelAdmin):
     pass
 
 class TaskListAdmin(admin.ModelAdmin):
+    #list_display = ('publisher', 'pub_date', 'last_change')
     pass
 
 class TaskAdmin(admin.ModelAdmin):
     pass
 
-admin.site.register(Task, NoteAdmin)
+admin.site.register(Task, TaskAdmin)
 admin.site.register(TaskList, TaskListAdmin)
-admin.site.register(Note, TaskAdmin)
+admin.site.register(Note, NoteAdmin)

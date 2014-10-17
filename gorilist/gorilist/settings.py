@@ -53,10 +53,9 @@ ROOT_URLCONF = 'gorilist.urls'
 
 WSGI_APPLICATION = 'gorilist.wsgi.application'
 
-TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+#TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
+TEMPLATE_DIRS = [os.path.join("/home/gkas/gorilist/gorilist/templates/gorilist",)]
 
-
-# Database
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 
 DATABASES = {

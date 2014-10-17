@@ -1,0 +1,10 @@
+{% block content %}
+    <h2>All the Tasks</h2>
+    <ul>
+    {% for task in object_list %}
+        <li>Task : {{ task.id }} -- {{ task.title }}<br>Body : {{ task.body }}
+        <br>Pub Date : {{ task.pub_date }}
+        </li>
+    {% endfor %}
+    </ul>
+{% endblock %}
