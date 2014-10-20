@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+    <head>
+        <table>
+            <tr><td><img src="{% static 'Gorilla.jpeg' %}" alt="Gorilist_Logo"/></td>
+                <td><h2>Gorilist - List your tasks the gorilla way -- {% block title %} {% endblock %}</h2></td>
+            </tr>
+        </table>
+    </head>
+
+    <body>
+        <div>
+            {% block body_block %} {% endblock %}
+        </div>
+
+        <hr />
+
+        <div style="margin-right:auto;margin-left:auto;width:10%">
+            ...................
+        </div>
+
+    </body>
+</html>

@@ -8,9 +8,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django import forms
 from django.http import HttpResponseRedirect
-from django.forms.extras.widgets import SelectDateWidget
-from django.forms import ModelForm, ModelMultipleChoiceField, Form
 
+from forms import NoteForm, TaskForm, TaskListForm
 
 class IndexView(generic.ListView):
     template_name = 'index.html'
@@ -73,28 +72,6 @@ def notespage(request, t_id):         # Present a list of all the notes attached
 
     return render(request, "task_notes.html", {'result':result, 't_id': t_id})
 
-class NoteForm(forms.ModelForm):
-    title = forms.CharField(max_length=250)
-    body = forms.CharField(widget=forms.Textarea)
-    pub_date = forms.DateField(widget=SelectDateWidget)
-    class Meta:
-        model = Note
-
-class TaskForm(forms.ModelForm):
-    title = forms.CharField(max_length=250)
-    body = forms.CharField(widget=forms.Textarea)
-    note = forms.ModelMultipleChoiceField(queryset=Note.objects.all())
-    pub_date = forms.DateField(widget=SelectDateWidget)
-    class Meta:
-        model = Task
-
-class TaskListForm(forms.ModelForm):
-    task = forms.ModelMultipleChoiceField(queryset=Task.objects.all())
-    pub_date= forms.DateField(widget=SelectDateWidget)
-    last_change = forms.DateField(widget=SelectDateWidget)
-    class Meta:
-        model = TaskList
-
 
 def get_task_list_task(request):
     t_l_id = None
@@ -126,12 +103,15 @@ def get_note(request, t_id=None):
     if request.method == 'POST':
         form = NoteForm(request.POST)
         if form.is_valid():
-            temp=form.save()
+            temp=form.save(commit=True)
+            # print form
             if t_id!=None:
                 task=Task.objects.get(id=t_id)
                 task.note.add(temp)
                 return HttpResponseRedirect('/notes/'+t_id)
             return HttpResponseRedirect('/new_task/')
+        else:
+            print form.errors
     else:
         form = NoteForm()
     return render(request, "notes_add.html", { 'form' : form })
@@ -161,3 +141,22 @@ def get_task(request, t_l_id=None):
     else:
         form = TaskForm()
     return render(request, "tasks_add.html", { 'form': form , 't_l_id':t_l_id})
+
+def remove_tasklist(request, t_l_id):
+    tasklist=TaskList.objects.get(id=t_l_id)
+    for task in tasklist.task.all():
+        task.delete()
+    tasklist.delete()
+    return HttpResponseRedirect('/')
+
+def remove_task(request, t_id):
+    task = Task.objects.get(id=t_id)
+    for note in task.note.all():
+        note.delete()
+    task.delete()
+    return HttpResponseRedirect('/tasks/')
+
+def remove_note(request, n_id):
+    note = Note.objects.get(id=n_id)
+    note.delete()
+    return HttpResponseRedirect('/notes/')

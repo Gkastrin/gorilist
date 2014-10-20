@@ -15,11 +15,12 @@ urlpatterns = patterns('',
     url(r'^new_task/$', views.get_task, name='new_task'),
     url(r'^new_task_list_task/$', views.get_task_list_task, name='new_task_list_task'),
     url(r'^new_task/(?P<t_l_id>\d+)/$', views.get_task, name='new_task'),
-    url(r'^new_task_note/(?P<t_l_id>\d+)$', views.get_task_note, name='new_note'),
+    url(r'^new_task_note/(?P<t_l_id>\d+)/$', views.get_task_note, name='new_note'),
+    url(r'^remove_T_L/(?P<t_l_id>\d+)/$', views.remove_tasklist, name='remove task list'),
+    url(r'^remove_T/(?P<t_id>\d+)/$', views.remove_task, name='remove task'),
+    url(r'^remove_N/(?P<n_id>\d+)/$', views.remove_note, name='remove note'),
     url(r'^new_task_note/$', views.get_task_note, name='new_task_note'),
     url(r'^new_note/(?P<t_id>\d+)/$', views.get_note, name='new_note'),
-    ####Present the tasks of a specific task_list
     url(r'tasks/(?P<t_l_id>\d+)/$',views.taskspage, name="task_list"),
-    ####Present the notes of a specific task
     url(r'^notes/(?P<t_id>\d+)/$', views.notespage, name="note_list" ),
 )

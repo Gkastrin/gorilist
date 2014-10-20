@@ -1,8 +1,11 @@
-{% block content %}
-    <h2>All the Tasks</h2>
+{% extends 'base.html' %}
+{% block title %}<h2>All the Tasks</h2>{% endblock %}
+{% block body_block %}
     <ul>
     {% for task in object_list %}
-        <li>Task : {{ task.id }} -- {{ task.title }}<br>Body : {{ task.body }}
+        <li>Task : {{ task.id }} -- {{ task.title }}
+        <a href="/remove_T/{{ task.id }}" style="text-decoration:none"><input type="button" value="Delete Task"></a>
+        <br>Body : {{ task.body }}
         <br>Pub Date : {{ task.pub_date }}
         </li>
     {% endfor %}

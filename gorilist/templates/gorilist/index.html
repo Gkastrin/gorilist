@@ -1,13 +1,25 @@
-<h2>Task Lists</h2>
-{% if latest_task_list %}
-    <ul>
-    {% for result_task in latest_task_list %}
-        <li>Task List id : <a href="/tasks/{{ result_task.id }}">[{{ result_task.id }}]</a></li>
-    {% endfor %}
-    </ul>
-    <a href="/new_task_list/" style="text-decoration:none"><input type="button" value="New Task List"></a>
-    <!--<a href="/new_task/" style="text-decoration:none"><input type="button" value="New Task"></a>-->
-    <!--<a href="/new_note/" style="text-decoration:none"><input type="button" value="New Note"></a>-->
-{% else %}
-    <p>No tasks are available.</p>
-{% endif %}
+{% extends 'base.html' %}
+
+{% block title %}<h2>Task Lists</h2> {% endblock %}
+
+{% block body_block %}
+
+    {% if latest_task_list %}
+        <ul>
+        {% for result_task in latest_task_list %}
+            <li>
+
+                    <td>{{ result_task.title }}</td>
+                    <td>Task List id : <a href="/tasks/{{ result_task.id }}">[{{ result_task.id }}]</a></td>
+                    <td><a href="/remove_T_L/{{ result_task.id }}" style="text-decoration:none">
+                        <input type="button" value="Delete Task list" style="position:relative;left:20px"></a>
+                    </td>
+
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No task lists are available.</p>
+    {% endif %}
+        <a href="/new_task_list/" style="text-decoration:none"><input type="button" value="New Task List"></a>
+{% endblock %}
