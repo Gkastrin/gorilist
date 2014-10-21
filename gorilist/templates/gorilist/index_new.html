@@ -12,13 +12,22 @@
                     <td>{{ tasklist.title }}</td>
                     <td> id : <a href="/tasks/{{ tasklist.id }}">[{{ tasklist.id }}]</a></td>
                     <td><a href="/remove_T_L/{{ tasklist.id }}" style="text-decoration:none">
-                        <input type="button" value="Delete Task list" ></a>
+                        <input type="button" value="Delete this Task list" ></a>
                     </td>
-                Tasks
+                    <td><a href="/new_task/{{ tasklist.id }}" style="text-decoration:none"><input type="button" value="Add New Task"></a>
+                <br>Tasks
                 {% for task in tasks %}
                     {% if task.t_l_id == tasklist.id %}
-                        <td>-->{{ task.title }} <a href="/notes/{{task.id}}" style="text-decoration:none">[{{ task.id }}]</a></td>
+                        <td>-->{{ task.title }} <a href="/notes/{{task.id}}" style="text-decoration:none">[{{ task.id }}]</a>
+                            <a href="/remove_T/{{ task.id }}" style="text-decoration:none;"><input type="button" value="Delete this task"></a>
+                            <!--<a href="/new_note/{{ task.id }}" style="text-decoration:none;"><input type="button" value="Add New Note"></a>-->
+                        </td>
                     {% endif %}
+                    <!--{% for note in notes %}-->
+                        <!--{% if note.t_id == task.id %}-->
+                            <!--<td>Note&ndash;&gt;{{ note.title }} [{{ note.id }}] <a href="/remove_N/{{ note.id }}" style="text-decoration:none;"><input type="button" value="Delete this note"></a></td>-->
+                        <!--{% endif %}-->
+                    <!--{% endfor %}-->
                 {% endfor %}
             </li>
         {% endfor %}
@@ -28,7 +37,8 @@
     <form action=" " method="post">
         {% csrf_token%}
             <table>
-                {{ form.as_table }} <a href="/new_task/" style="text-decoration:none"><input type="button" value="Add Task"></a>
+                {{ form.as_table }}
+                <!--<a href="/new_task/" style="text-decoration:none"><input type="button" value="Add Task"></a>-->
             </table>
             <input type="submit" value="OK">
     </form>

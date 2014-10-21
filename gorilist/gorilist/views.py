@@ -31,12 +31,24 @@ def index(request):
         for task in tasklist.task.all():
             temp_task={}
             temp_task['t_l_id']=tasklist.id
-            print tasklist.id
+            # print tasklist.id
             temp_task['id']=str(task.id)
             temp_task["title"]=str(task.title)
             temp_task["body"]=str(task.body)
             temp_task["pub_date"]=str(task.pub_date)
             result.append(temp_task)
+    # result2=[]
+    # tasks = Task.objects.all()
+    # for task in tasks:
+    #     for note in task.note.all():
+    #         temp_note={}
+    #         temp_note['t_id']=task.id
+    #         print task.id
+            # temp_note['title']=str(note.title)
+            # temp_note['id']=str(note.id)
+            # temp_note['body']=str(note.body)
+            # temp_note['pub_date']=str(note.pub_date)
+            # result2.append(temp_note)
 
     return render(request, 'index_new.html', {'tasklists':tasklists,'form':form ,'tasks':result})
 
@@ -176,9 +188,9 @@ def remove_task(request, t_id):
     for note in task.note.all():
         note.delete()
     task.delete()
-    return HttpResponseRedirect('/tasks/')
+    return HttpResponseRedirect('/')
 
 def remove_note(request, n_id):
     note = Note.objects.get(id=n_id)
     note.delete()
-    return HttpResponseRedirect('/notes/')
+    return HttpResponseRedirect('/')

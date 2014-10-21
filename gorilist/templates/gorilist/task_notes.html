@@ -5,6 +5,7 @@
     <ul>
         {% for note in result %}
             <li>{{ note.title }} -- id : {{ note.id }}<br>Body : {{ note.body }}<br>Pub_date : {{ note.pub_date }}
+                <a href="/remove_N/{{ note.id }}" style="text-decoration:none;"><input type="button" value="Delete this Note"></a>
             </li>
         {% endfor %}
     </ul>
