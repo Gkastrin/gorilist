@@ -1,5 +1,7 @@
-{% block content %}
-        <h2>Add Task</h2>
+{% extends 'base.html' %}
+{% block title %} Add Task {% endblock %}
+{% block body_block %}
+
         <form action=" " method="post">
             {% csrf_token %}
             <table>

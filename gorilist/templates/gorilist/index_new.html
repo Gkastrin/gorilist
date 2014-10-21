@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %} WorkFlows {% endblock %}
+
+{% block body_block %}
+
+    {% if tasklists %}
+        <ul>
+        {% for tasklist in tasklists %}
+            <li>
+
+                    <td>{{ tasklist.title }}</td>
+                    <td> id : <a href="/tasks/{{ tasklist.id }}">[{{ tasklist.id }}]</a></td>
+                    <td><a href="/remove_T_L/{{ tasklist.id }}" style="text-decoration:none">
+                        <input type="button" value="Delete Task list" ></a>
+                    </td>
+                Tasks
+                {% for task in tasks %}
+                    {% if task.t_l_id == tasklist.id %}
+                        <td>-->{{ task.title }} <a href="/notes/{{task.id}}" style="text-decoration:none">[{{ task.id }}]</a></td>
+                    {% endif %}
+                {% endfor %}
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    <h3>Add Task List</h3>
+    <form action=" " method="post">
+        {% csrf_token%}
+            <table>
+                {{ form.as_table }} <a href="/new_task/" style="text-decoration:none"><input type="button" value="Add Task"></a>
+            </table>
+            <input type="submit" value="OK">
+    </form>
+
+
+{% endblock %}

@@ -1,5 +1,7 @@
-{% block content %}
-    <h2>Notes</h2>
+{% extends 'base.html'%}
+{%block title %} Notes {% endblock %}
+
+{% block body_block %}
     <ul>
         {% for note in result %}
             <li>{{ note.title }} -- id : {{ note.id }}<br>Body : {{ note.body }}<br>Pub_date : {{ note.pub_date }}

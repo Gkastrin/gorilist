@@ -1,5 +1,6 @@
-{% block content %}
-    <h2>All the Notes</h2>
+{% extends 'base.html' %}
+{% block title %} All the Notes {% endblock %}
+{% block body_block %}
     <ul>
     {% for note in object_list %}
         <li>

@@ -21,8 +21,8 @@ class Task(models.Model):
         return self.title
 
 class TaskList(models.Model):
-    task = models.ManyToManyField(Task)
     title = models.TextField(max_length=250)
+    task = models.ManyToManyField(Task)
     pub_date = models.DateField('date published')
     last_change = models.DateField('latest change')
 

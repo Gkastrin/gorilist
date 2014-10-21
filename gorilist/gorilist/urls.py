@@ -7,7 +7,8 @@ from models import TaskList, Note
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^$', views.IndexView.as_view(), name='index'),
+    # url(r'^$', views.IndexView.as_view(), name='index'),
+    url(r'^$', views.index, name='index'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^notes/$', views.NoteListView.as_view(), name='notes'),
     url(r'^tasks/$', views.TaskListView.as_view(), name='tasks'),
@@ -23,4 +24,5 @@ urlpatterns = patterns('',
     url(r'^new_note/(?P<t_id>\d+)/$', views.get_note, name='new_note'),
     url(r'tasks/(?P<t_l_id>\d+)/$',views.taskspage, name="task_list"),
     url(r'^notes/(?P<t_id>\d+)/$', views.notespage, name="note_list" ),
+    # url(r'^index_test/$', views.index, name='new index'),
 )

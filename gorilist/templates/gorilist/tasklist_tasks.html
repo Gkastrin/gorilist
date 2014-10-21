@@ -1,5 +1,7 @@
-{% block content %}
-    <h2>Tasks</h2>
+{% extends 'base.html'%}
+{% block title %} Tasks {% endblock %}
+
+{% block body_block %}
     <ul>
     {% for task in result %}
         <li><a href="/notes/{{task.id}}">{{ task.title }} -- id : {{ task.id }}</a>

@@ -2,13 +2,11 @@ __author__ = 'mpetyx'
 
 import datetime
 from django.views import generic
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from models import TaskList, Note, Task
 from django.http import HttpResponse
 from django.shortcuts import render
 from django import forms
 from django.http import HttpResponseRedirect
-
 from forms import NoteForm, TaskForm, TaskListForm
 
 class IndexView(generic.ListView):
@@ -19,6 +17,28 @@ class IndexView(generic.ListView):
         """Return the last twenty five published questions."""
         return TaskList.objects.order_by('-pub_date')[:25]
 
+def index(request):
+    tasklists = TaskList.objects.all()
+    if request.method == 'POST':
+        form = TaskListForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+    else:
+        form = TaskListForm
+    result=[]
+    for tasklist in tasklists:
+        for task in tasklist.task.all():
+            temp_task={}
+            temp_task['t_l_id']=tasklist.id
+            print tasklist.id
+            temp_task['id']=str(task.id)
+            temp_task["title"]=str(task.title)
+            temp_task["body"]=str(task.body)
+            temp_task["pub_date"]=str(task.pub_date)
+            result.append(temp_task)
+
+    return render(request, 'index_new.html', {'tasklists':tasklists,'form':form ,'tasks':result})
 
 #### View for getting all the tasks of the database
 class TaskListView(generic.ListView):
@@ -145,6 +165,8 @@ def get_task(request, t_l_id=None):
 def remove_tasklist(request, t_l_id):
     tasklist=TaskList.objects.get(id=t_l_id)
     for task in tasklist.task.all():
+        for note in task.note.all():
+            note.delete()
         task.delete()
     tasklist.delete()
     return HttpResponseRedirect('/')

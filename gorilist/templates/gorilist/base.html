@@ -1,25 +1,21 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 
-<html>
+<html style="border-style: solid; border-color:grey;border-width:1px;">
     <head>
-        <table>
-            <tr><td><img src="{% static 'Gorilla.jpeg' %}" alt="Gorilist_Logo"/></td>
-                <td><h2>Gorilist - List your tasks the gorilla way -- {% block title %} {% endblock %}</h2></td>
-            </tr>
-        </table>
+        <div  style="background-color : #E1EFBB ;border-width:3px;border-style:solid;border-color:#3C3B37" >
+            <!--<img src="{% static 'gorilist.png' %}" alt="Gorilist_Logo" style = " position:relative; top:10%; left:40%;" /><br>-->
+            <h1 style="text-align:center;color:#90C140;font-family:Helvetica;font-size:250%">The Gorilist </h1><br>
+            <h2 style="position:relative;left:10px;">{% block title %} {% endblock %}</h2>
+        </div>
     </head>
-
     <body>
         <div>
             {% block body_block %} {% endblock %}
         </div>
-
         <hr />
-
-        <div style="margin-right:auto;margin-left:auto;width:10%">
-            ...................
+        <div style="text-align:center;">
+            The Gorilist, a service for organizing and sharing your tasks
         </div>
-
     </body>
 </html>
