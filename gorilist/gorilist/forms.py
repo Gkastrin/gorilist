@@ -9,7 +9,7 @@ from datetime import datetime
 class NoteForm(forms.ModelForm):
     title = forms.CharField(max_length=250)
     body = forms.CharField(widget=forms.Textarea)
-    pub_date = forms.DateTimeField(widget=forms.HiddenInput, initial=datetime.now() )
+    pub_date = forms.DateTimeField(widget=forms.HiddenInput, initial=datetime.now())
     class Meta:
         model = Note
 

@@ -37,20 +37,20 @@ def index(request):
             temp_task["body"]=str(task.body)
             temp_task["pub_date"]=str(task.pub_date)
             result.append(temp_task)
-    # result2=[]
-    # tasks = Task.objects.all()
-    # for task in tasks:
-    #     for note in task.note.all():
-    #         temp_note={}
-    #         temp_note['t_id']=task.id
-    #         print task.id
-            # temp_note['title']=str(note.title)
-            # temp_note['id']=str(note.id)
-            # temp_note['body']=str(note.body)
-            # temp_note['pub_date']=str(note.pub_date)
-            # result2.append(temp_note)
+    result2=[]
+    tasks = Task.objects.all()
+    for task in tasks:
+        for note in task.note.all():
+            temp_note={}
+            temp_note['t_id']=str(task.id)
+            # print 'eeeeeeeeeeeee',task.id
+            temp_note['title']=str(note.title)
+            temp_note['id']=str(note.id)
+            temp_note['body']=str(note.body)
+            temp_note['pub_date']=str(note.pub_date)
+            result2.append(temp_note)
 
-    return render(request, 'index_new.html', {'tasklists':tasklists,'form':form ,'tasks':result})
+    return render(request, 'index_new.html', {'tasklists':tasklists,'form':form ,'tasks':result, 'notes':result2})
 
 #### View for getting all the tasks of the database
 class TaskListView(generic.ListView):
@@ -122,7 +122,7 @@ def get_task_note(request, t_l_id=None):
         form = NoteForm(request.POST)
         if form.is_valid():
             form.save()
-            if t_l_id != None:
+            if t_l_id is None:
                 return HttpResponseRedirect('/new_task/'+t_l_id)
             else:
                 return HttpResponseRedirect('/new_task/')
@@ -137,11 +137,13 @@ def get_note(request, t_id=None):
         if form.is_valid():
             temp=form.save(commit=True)
             # print form
-            if t_id!=None:
+            if t_id is not None:
                 task=Task.objects.get(id=t_id)
                 task.note.add(temp)
-                return HttpResponseRedirect('/notes/'+t_id)
-            return HttpResponseRedirect('/new_task/')
+                # return HttpResponseRedirect('/notes/'+t_id)
+                return HttpResponseRedirect('/')
+            # return HttpResponseRedirect('/new_task/')
+            return HttpResponseRedirect('/')
         else:
             print form.errors
     else:
@@ -165,11 +167,13 @@ def get_task(request, t_l_id=None):
         form = TaskForm(request.POST)
         if form.is_valid():
             temp = form.save()
-            if t_l_id !=None:
+            if t_l_id is not None:
                 tasklist = TaskList.objects.get(id=t_l_id)
                 tasklist.task.add(temp)
-                return HttpResponseRedirect('/tasks/'+t_l_id)
-            return HttpResponseRedirect('/new_task_list/')
+                # return HttpResponseRedirect('/tasks/'+t_l_id)
+                return HttpResponseRedirect('/')
+            # return HttpResponseRedirect('/new_task_list/')
+            return HttpResponseRedirect('/')
     else:
         form = TaskForm()
     return render(request, "tasks_add.html", { 'form': form , 't_l_id':t_l_id})

@@ -5,10 +5,10 @@
     <ul>
         {% for note in result %}
             <li>{{ note.title }} -- id : {{ note.id }}<br>Body : {{ note.body }}<br>Pub_date : {{ note.pub_date }}
-                <a href="/remove_N/{{ note.id }}" style="text-decoration:none;"><input type="button" value="Delete this Note"></a>
+                <a href="/remove_N/{{ note.id }}"><button class="btn btn-danger glyphicon glyphicon-remove" title="Delete this Note"></button></a>
             </li>
         {% endfor %}
     </ul>
-    <a href="/new_note/{{ t_id }}" style="text-decoration:none"><input type="button" value="Add Note"></a>
-    <a href="/" style="text-decoration:none"><input type="button" value="HOME"></a>
+    <a href="/new_note/{{ t_id }}"><button class="btn btn-primary glyphicon glyphicon-plus" title="Add Note"></button></a>
+    <a href="/" ><button class="btn btn-primary glyphicon glyphicon-home" title="HOME"></button></a>
 {% endblock %}

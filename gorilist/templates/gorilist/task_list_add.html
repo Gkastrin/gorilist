@@ -4,7 +4,7 @@
         <form action=" " method="post">
             {% csrf_token%}
             <table>
-                {{ form.as_table }} <a href="/new_task/" style="text-decoration:none"><input type="button" value="Add Task"></a>
+                {{ form.as_table }} <a href="/new_task/"><button class="btn btn-primary glyphicon glyphicon-plus" title="Add Task"></button></a>
             </table>
             <input type="submit" value="OK">
         </form>

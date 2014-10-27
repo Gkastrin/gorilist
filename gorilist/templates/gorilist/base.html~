@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html style="border-style: solid; border-color:black;border-width:2px;background-color:#829AA8;">
+    <head>
+        <link href="/home/gkas/gorilist/gorilist/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/home/gkas/gorilist/gorilist/bootstrap/css/base.css" rel="stylesheet">
+        <div  style="background-color : #E1EFBB ;border-width:3px;border-style:solid;border-color:#3C3B37" >
+            <!--<img src="{% static 'gorilist.png' %}" alt="Gorilist_Logo" style = " position:relative; top:10%; left:40%;" /><br>-->
+            <h1 style="text-align:center;color:grey;font-family:Helvetica;font-size:250%">The Gorilist </h1><br>
+            <h2 style="position:relative;left:10px;color:grey;">{% block title %} {% endblock %}</h2>
+        </div>
+    </head>
+    <body>
+        <script src="/gorilist/gorilist/bootstrap/js/jquery/1.11.1/jquery.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <div>
+            {% block body_block %} {% endblock %}
+        </div>
+        <hr />
+        <div style="text-align:center;">
+            The Gorilist, a service for organizing and sharing your tasks
+        </div>
+<button type="button" class="btn btn-default btn-lg">
+  <span class="glyphicon glyphicon-star"></span> Star
+</button></body>
+</html>

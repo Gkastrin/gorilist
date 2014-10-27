@@ -1,21 +1,28 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 
-<html style="border-style: solid; border-color:black;border-width:2px;background-color:#829AA8;">
+<html>
     <head>
-        <div  style="background-color : #E1EFBB ;border-width:3px;border-style:solid;border-color:#3C3B37" >
-            <!--<img src="{% static 'gorilist.png' %}" alt="Gorilist_Logo" style = " position:relative; top:10%; left:40%;" /><br>-->
-            <h1 style="text-align:center;color:grey;font-family:Helvetica;font-size:250%">The Gorilist </h1><br>
-            <h2 style="position:relative;left:10px;color:grey;">{% block title %} {% endblock %}</h2>
-        </div>
+        <link href="/home/gkas/gorilist/gorilist/static/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/home/gkas/gorilist/gorilist/static/base.css" rel="stylesheet">
+
     </head>
     <body>
-        <div>
+        <script src="/home/gkas/gorilist/gorilist/static/bootstrap/js/jquery/1.11.1/jquery.js"></script>
+        <script src="/home/gkas/gorilist/gorilist/static/bootstrap/js/bootstrap.min.js"></script>
+        <div class="col-md-12">
+            <div class="text-center">
+            <!--<img src="{% static 'gorilist.png' %}" alt="Gorilist_Logo" style = " position:relative; top:10%; left:40%;" /><br>-->
+            <h1>The Gorilist </h1>
+            <h2>{% block title %} {% endblock %}</h2>
+        </div>
             {% block body_block %} {% endblock %}
         </div>
-        <hr />
-        <div style="text-align:center;">
-            The Gorilist, a service for organizing and sharing your tasks
+
+        <div class="footer navbar-fixed-bottom">
+            <div class="container">
+                <p class="text-muted text-center">The Gorilist, a service for organizing and sharing your tasks
+            </div>
         </div>
     </body>
 </html>

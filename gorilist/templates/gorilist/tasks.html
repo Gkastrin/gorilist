@@ -4,11 +4,11 @@
     <ul>
     {% for task in object_list %}
         <li>Task : {{ task.id }} -- {{ task.title }}
-        <a href="/remove_T/{{ task.id }}" style="text-decoration:none"><input type="button" value="Delete Task"></a>
+        <a href="/remove_T/{{ task.id }}"><button class="btn btn-danger glyphicon glyphicon-remove" title="Delete this Task"></button></a>
         <br>Body : {{ task.body }}
         <br>Pub Date : {{ task.pub_date }}
         </li>
     {% endfor %}
     </ul>
-    <a href="/" style="text-decoration:none"><input type="button" value="HOME"></a>
+    <a href="/" ><button class="btn btn-primary glyphicon glyphicon-home" title="HOME"></button></a>
 {% endblock %}

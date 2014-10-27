@@ -2,16 +2,18 @@
 {% block title %} Add Task {% endblock %}
 {% block body_block %}
 
+        {% if t_l_id != None %}
+                    <a href="/new_task_note/{{ t_l_id }}"><button class="btn btn-primary glyphicon glyphicon-plus" title="Add Note"></button></a>
+        {% else %}
+                    <a href="/new_task_note/"><button class="btn bnt-primary glyphicon glyphicon-plus" title="Add Note"></button></a>
+        {% endif %}
+
         <form action=" " method="post">
             {% csrf_token %}
             <table>
                 {{ form.as_table }}
-                {% if t_l_id != None %}
-                    <a href="/new_task_note/{{ t_l_id }}" style="text-decoration:none"><input type="button" value="Add Note"></a>
-                {% else %}
-                    <a href="/new_task_note/" style="text-decoration:none"><input type="button" value="Add Note"></a>
-                {% endif %}
             </table>
-            <input type="submit"  value="OK">
+            <button type="submit" class="btn btn-primary glyphicon glyphicon-ok" title="OK"></button>
         </form>
+        <a href="/" ><button class="btn btn-primary glyphicon glyphicon-home" title="HOME"></button></a>
 {% endblock %}

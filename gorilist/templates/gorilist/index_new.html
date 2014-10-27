@@ -1,47 +1,56 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block title %} WorkFlows {% endblock %}
 
 {% block body_block %}
 
+        <div class="row text-center">
+            <h3>Add Task List</h3>
+        </div>
+        <form action=" " method="post">
+            {% csrf_token%}
+                    {{ form  }}
+                <!--<a href="/new_task/" style="text-decoration:none"><input type="button" value="Add Task"></a>-->
+            <br><button type="submit" class="btn btn-primary glyphicon glyphicon-ok"></button>
+        </form>
+<br>
     {% if tasklists %}
         <ul>
         {% for tasklist in tasklists %}
-            <li>
-
-                    <td>{{ tasklist.title }}</td>
-                    <td> id : <a href="/tasks/{{ tasklist.id }}">[{{ tasklist.id }}]</a></td>
-                    <td><a href="/remove_T_L/{{ tasklist.id }}" style="text-decoration:none">
-                        <input type="button" value="Delete this Task list" ></a>
-                    </td>
-                    <td><a href="/new_task/{{ tasklist.id }}" style="text-decoration:none"><input type="button" value="Add New Task"></a>
-                <br>Tasks
+            <br><li>
+                <!--{{ tasklist.title }}-->
+                <a href="/tasks/{{ tasklist.id }}">{{ tasklist.title }}</a>
+                <a href="/remove_T_L/{{ tasklist.id }}" >
+                    <button class="btn btn-danger glyphicon glyphicon-remove" title="Delete this Task list" ></button>
+                </a>
+                <a href="/new_task/{{ tasklist.id }}" >
+                    <!--<input type="button" class="btn btn-primary" value="Add New Task">-->
+                    <button class="glyphicon glyphicon-plus btn btn-primary" title="Add a new task to this task list"></button>
+                </a>
+                <!--<button type="button" class="btn btn-primary btn-lg AddBtn">-->
+                <!--</button>-->
+                <br>
+                Tasks
                 {% for task in tasks %}
+                    <br>
                     {% if task.t_l_id == tasklist.id %}
-                        <td>-->{{ task.title }} <a href="/notes/{{task.id}}" style="text-decoration:none">[{{ task.id }}]</a>
-                            <a href="/remove_T/{{ task.id }}" style="text-decoration:none;"><input type="button" value="Delete this task"></a>
-                            <!--<a href="/new_note/{{ task.id }}" style="text-decoration:none;"><input type="button" value="Add New Note"></a>-->
-                        </td>
+                    <br>
+                        --> <a href="/notes/{{task.id}}" >{{ task.title }}</a>
+                            <a href="/remove_T/{{ task.id }}" ><button title="Delete this task" class="btn btn-danger glyphicon glyphicon-remove" ></button></a>
+                            <!--<a href="/new_note/{{ task.id }}" style="text-decoration:none;"><input type="button" class="btn btn-primary" value="Add New Note"></a>-->
+                            <a href="/new_note/{{ task.id }}" ><button class="glyphicon glyphicon-plus btn btn-primary" title="Add new note to this task"></button></a>
+                            Notes
+                            {% for note in notes %}
+                                {% if note.t_id == task.id %}
+                                    --> <a href="/notes/{{ note.id }}">{{ note.title }}</a>
+                                    <a href="/remove_N/{{ note.id }}"><button class="btn btn-danger glyphicon glyphicon-remove" title="Delete this note"></button></a>
+                                {% endif %}
+                            {% endfor %}
                     {% endif %}
-                    <!--{% for note in notes %}-->
-                        <!--{% if note.t_id == task.id %}-->
-                            <!--<td>Note&ndash;&gt;{{ note.title }} [{{ note.id }}] <a href="/remove_N/{{ note.id }}" style="text-decoration:none;"><input type="button" value="Delete this note"></a></td>-->
-                        <!--{% endif %}-->
-                    <!--{% endfor %}-->
                 {% endfor %}
             </li>
         {% endfor %}
         </ul>
     {% endif %}
-    <h3>Add Task List</h3>
-    <form action=" " method="post">
-        {% csrf_token%}
-            <table>
-                {{ form.as_table }}
-                <!--<a href="/new_task/" style="text-decoration:none"><input type="button" value="Add Task"></a>-->
-            </table>
-            <input type="submit" value="OK">
-    </form>
-
-
 {% endblock %}
