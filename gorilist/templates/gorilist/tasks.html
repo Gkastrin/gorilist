@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block title %} All the Tasks {% endblock %}
 {% block body_block %}
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active">Tasks</li>
+        </ol>
     <ul>
     {% for task in object_list %}
         <li>Task : {{ task.id }} -- {{ task.title }}

@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 {% block title %} Add Task {% endblock %}
 {% block body_block %}
-
+    <ol class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li class="active">Add Task</li>
+    </ol>
         {% if t_l_id != None %}
                     <a href="/new_task_note/{{ t_l_id }}"><button class="btn btn-primary glyphicon glyphicon-plus" title="Add Note"></button></a>
         {% else %}

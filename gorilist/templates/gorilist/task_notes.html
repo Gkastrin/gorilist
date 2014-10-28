@@ -2,6 +2,10 @@
 {%block title %} Notes {% endblock %}
 
 {% block body_block %}
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active">Notes</li>
+        </ol>
     <ul>
         {% for note in result %}
             <li>{{ note.title }} -- id : {{ note.id }}<br>Body : {{ note.body }}<br>Pub_date : {{ note.pub_date }}

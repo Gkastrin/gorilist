@@ -4,9 +4,11 @@
 {% block title %} WorkFlows {% endblock %}
 
 {% block body_block %}
-
+    <ol class="breadcrumb">
+        <li class="active">Home</li>
+    </ol>
         <div class="row text-center">
-            <h3>Add Task List</h3>
+            <!--<h3>Add Task List</h3>-->
         </div>
         <form action=" " method="post">
             {% csrf_token%}
@@ -20,35 +22,44 @@
         {% for tasklist in tasklists %}
             <br><li>
                 <!--{{ tasklist.title }}-->
-                <a href="/tasks/{{ tasklist.id }}">{{ tasklist.title }}</a>
-                <a href="/remove_T_L/{{ tasklist.id }}" >
-                    <button class="btn btn-danger glyphicon glyphicon-remove" title="Delete this Task list" ></button>
-                </a>
+                <!--<a href="/tasks/{{ tasklist.id }}">{{ tasklist.title }}</a>-->
+                {{ tasklist.title }}
                 <a href="/new_task/{{ tasklist.id }}" >
                     <!--<input type="button" class="btn btn-primary" value="Add New Task">-->
                     <button class="glyphicon glyphicon-plus btn btn-primary" title="Add a new task to this task list"></button>
                 </a>
+                <a href="/edit_T_L/{{ tasklist.id }}">
+                    <button class="btn btn-warning glyphicon glyphicon-pencil" title="Edit this Task list"></button>
+                </a>
+                <a href="/remove_T_L/{{ tasklist.id }}" >
+                    <button class="btn btn-danger glyphicon glyphicon-remove" title="Delete this Task list" ></button>
+                </a>
                 <!--<button type="button" class="btn btn-primary btn-lg AddBtn">-->
                 <!--</button>-->
                 <br>
-                Tasks
+                <strong>Tasks</strong><ul>
                 {% for task in tasks %}
-                    <br>
                     {% if task.t_l_id == tasklist.id %}
-                    <br>
-                        --> <a href="/notes/{{task.id}}" >{{ task.title }}</a>
+                        <!--&ndash;&gt; <a href="/notes/{{task.id}}" >{{ task.title }}</a>:<br>{{ task.body }}-->
+                            <li>{{ task.title }}: {{ task.body }}
+                            <a href="/new_note/{{ task.id }}" ><button class="glyphicon glyphicon-plus btn btn-primary" title="Add new note to this task"></button></a>
+                            <a href="/edit_T/{{ task.id }}"><button class="btn btn-warning glyphicon glyphicon-pencil" title="Edit this task"></button></a>
                             <a href="/remove_T/{{ task.id }}" ><button title="Delete this task" class="btn btn-danger glyphicon glyphicon-remove" ></button></a>
                             <!--<a href="/new_note/{{ task.id }}" style="text-decoration:none;"><input type="button" class="btn btn-primary" value="Add New Note"></a>-->
-                            <a href="/new_note/{{ task.id }}" ><button class="glyphicon glyphicon-plus btn btn-primary" title="Add new note to this task"></button></a>
-                            Notes
+                            </li>
+                            <strong>Notes</strong><ul>
                             {% for note in notes %}
                                 {% if note.t_id == task.id %}
-                                    --> <a href="/notes/{{ note.id }}">{{ note.title }}</a>
-                                    <a href="/remove_N/{{ note.id }}"><button class="btn btn-danger glyphicon glyphicon-remove" title="Delete this note"></button></a>
+                                     <!--<a href="/notes/{{ note.id }}">{{ note.title }}</a>: {{ note.body }}-->
+                                    <li> {{ note.title }}: {{ note.body }}
+                                    <a href="/edit_N/{{ note.id }}"><button title="Edit this note" class="btn btn-warning glyphicon glyphicon-pencil"></button></a>
+                                    <a href="/remove_N/{{ note.id }}"><button class="btn btn-danger glyphicon glyphicon-remove" title="Delete this note"></button></a></li>
                                 {% endif %}
                             {% endfor %}
+                            </ul>
                     {% endif %}
                 {% endfor %}
+                </ul>
             </li>
         {% endfor %}
         </ul>

@@ -149,7 +149,8 @@ def get_note(request, t_id=None):
     else:
         form = NoteForm()
     return render(request, "notes_add.html", { 'form' : form })
-
+# def edit_task_list(request,t_l_id):
+#     return render(request,'task_list_edit.html',{})
 #### View function for creating and saving new task_list
 def get_task_list(request):
     if request.method == 'POST':

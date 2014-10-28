@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 {% block title %} All the Notes {% endblock %}
 {% block body_block %}
+        <ol class="breadcrumb">
+            <li><a href="/">Home</a></li>
+            <li class="active">Notes</li>
+        </ol>
     <ul>
     {% for note in object_list %}
         <li>
             Note : {{ note.title }} -- {{ note.id }}
-            <a href="/remove_N/{{ note.id }}" style="text-decoration:none"><input type="button" value="Delete Note"></a>
+            <a href="/remove_N/{{ note.id }}"><button class="btn btn-danger glyphicon glyphicon-remove" title="Delete this Note"></button></a>
         <br>Body : {{ note.body }}
         <br>Pub Date : {{ note.pub_date }}
         </li>
