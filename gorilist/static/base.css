@@ -1,8 +1,9 @@
-.page-header{
+.Divider{
+	border-width :1px;
+	border-color:grey;
 
-	
 }
 
-.Moto{
-
+.dropdown-menu{
+	width:500px;
 }

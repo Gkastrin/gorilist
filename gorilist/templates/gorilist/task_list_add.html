@@ -2,7 +2,7 @@
 {% block title%} Add Task List {% endblock %}
 {% block body_block %}
         <form action=" " method="post">
-            {% csrf_token%}
+            {% csrf_token %}
             <table>
                 {{ form.as_table }} <a href="/new_task/"><button class="btn btn-primary glyphicon glyphicon-plus" title="Add Task"></button></a>
             </table>

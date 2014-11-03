@@ -5,11 +5,11 @@
         <li><a href="/">Home</a></li>
         <li class="active">Add Task</li>
     </ol>
-        {% if t_l_id != None %}
-                    <a href="/new_task_note/{{ t_l_id }}"><button class="btn btn-primary glyphicon glyphicon-plus" title="Add Note"></button></a>
-        {% else %}
-                    <a href="/new_task_note/"><button class="btn bnt-primary glyphicon glyphicon-plus" title="Add Note"></button></a>
-        {% endif %}
+        <!--{% if t_l_id != None %}-->
+                    <!--<a href="/new_task_note/{{ t_l_id }}"><button class="btn btn-primary glyphicon glyphicon-plus" title="Add Note"></button></a>-->
+        <!--{% else %}-->
+                    <!--<a href="/new_task_note/"><button class="btn bnt-primary glyphicon glyphicon-plus" title="Add Note"></button></a>-->
+        <!--{% endif %}-->
 
         <form action=" " method="post">
             {% csrf_token %}
@@ -18,5 +18,5 @@
             </table>
             <button type="submit" class="btn btn-primary glyphicon glyphicon-ok" title="OK"></button>
         </form>
-        <a href="/" ><button class="btn btn-primary glyphicon glyphicon-home" title="HOME"></button></a>
+        <!--<a href="/" ><button class="btn btn-primary glyphicon glyphicon-home" title="HOME"></button></a>-->
 {% endblock %}

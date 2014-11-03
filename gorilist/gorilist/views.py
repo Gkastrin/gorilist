@@ -7,15 +7,15 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django import forms
 from django.http import HttpResponseRedirect
-from forms import NoteForm, TaskForm, TaskListForm
+from forms import NoteForm, TaskForm, TaskListForm, EditForm, EditLForm
 
-class IndexView(generic.ListView):
-    template_name = 'index.html'
-    context_object_name = 'latest_task_list'
-
-    def get_queryset(self):
-        """Return the last twenty five published questions."""
-        return TaskList.objects.order_by('-pub_date')[:25]
+# class IndexView(generic.ListView):
+#     template_name = 'index.html'
+#     context_object_name = 'latest_task_list'
+#
+#     def get_queryset(self):
+#         """Return the last twenty five published questions."""
+#         return TaskList.objects.order_by('-pub_date')[:25]
 
 def index(request):
     tasklists = TaskList.objects.all()
@@ -149,9 +149,55 @@ def get_note(request, t_id=None):
     else:
         form = NoteForm()
     return render(request, "notes_add.html", { 'form' : form })
-# def edit_task_list(request,t_l_id):
-#     return render(request,'task_list_edit.html',{})
-#### View function for creating and saving new task_list
+
+###View function for editing a note
+def edit_note(request,n_id):
+    note = Note.objects.get(id=n_id)
+    form = EditForm()
+    if request.method == 'POST':
+        form=EditForm(request.POST)
+        if form.is_valid():
+            if form.cleaned_data['title'] :
+                note.title=form.cleaned_data['title']
+            if form.cleaned_data['body'] :
+                note.body=form.cleaned_data['body']
+            note.save()
+        return HttpResponseRedirect('/')
+    else:
+        form=EditForm()
+    return render(request,'note_edit.html',{'form':form})
+
+###View function for editing a task
+def edit_task(request,t_id):
+    task = Task.objects.get(id=t_id)
+    if request.method == 'POST':
+        form=EditForm(request.POST)
+        if form.is_valid():
+            if form.cleaned_data['title']:
+                task.title=form.cleaned_data['title']
+            if form.cleaned_data['body']:
+                task.body=form.cleaned_data['body']
+            task.save()
+        return HttpResponseRedirect('/')
+    else:
+        form=EditForm()
+    return render(request,'task_edit.html',{'form':form})
+
+### View function for editing a task list
+def edit_task_list(request,t_l_id):
+    tasklist = TaskList.objects.get(id=t_l_id)
+    if request.method == 'POST':
+        form = EditLForm(request.POST)
+        if form.is_valid():
+            if form.cleaned_data['title']:
+                tasklist.title=form.cleaned_data['title']
+            tasklist.save()
+        return HttpResponseRedirect('/')
+    else:
+        form=EditLForm()
+    return render(request,'task_list_edit.html',{'form':form})
+
+### View function for creating and saving new task_list
 def get_task_list(request):
     if request.method == 'POST':
         form = TaskListForm(request.POST)
@@ -161,6 +207,7 @@ def get_task_list(request):
     else:
         form = TaskListForm
     return render(request, "task_list_add.html", {'form' : form})
+
 
 #### View function for creating and saving new task
 def get_task(request, t_l_id=None):
