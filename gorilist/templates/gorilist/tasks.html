@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %} All the Tasks {% endblock %}
 {% block body_block %}
         <ol class="breadcrumb">
@@ -9,10 +10,12 @@
     {% for task in object_list %}
         <li>Task : {{ task.id }} -- {{ task.title }}
         <a href="/remove_T/{{ task.id }}"><button class="btn btn-danger glyphicon glyphicon-remove" title="Delete this Task"></button></a>
+        <br>Priority : {{ task.priority }}
+        <br>DeadLine : {{ task.dead_line }}
         <br>Body : {{ task.body }}
         <br>Pub Date : {{ task.pub_date }}
         </li>
     {% endfor %}
     </ul>
-    <a href="/" ><button class="btn btn-primary glyphicon glyphicon-home" title="HOME"></button></a>
+    <!--<a href="/" ><button class="btn btn-primary glyphicon glyphicon-home" title="HOME"></button></a>-->
 {% endblock %}

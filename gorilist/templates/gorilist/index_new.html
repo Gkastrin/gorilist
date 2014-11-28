@@ -4,71 +4,33 @@
 {% block title %} WorkFlows {% endblock %}
 
 {% block body_block %}
+        <!--LENGTH: {{l}}<br>-->
+        <!--{{temp}}-->
     <ol class="breadcrumb">
-        <li class="active">Home</li>
+        <li><a href="/">Home</a></li>
+        <li class="active">Notes</li>
     </ol>
-        <div class="row text-center">
-            <!--<h3>Add Task List</h3>-->
-        </div>
-        <form action=" " method="post">
-            {% csrf_token%}
-                    {{ form  }}
-                <!--<a href="/new_task/" style="text-decoration:none"><input type="button" value="Add Task"></a>-->
-            <br><button type="submit" class="btn btn-primary glyphicon glyphicon-ok" title="OK"></button>
-        </form>
-<br>
-    {% if tasklists %}
+    <form action=" " method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button type="submit" class="btn btn-primary glyphicon glyphicon-plus" title="Add new note"></button>
+    </form>
+    <br>
+    {% if cloud_notes %}
+        <h2>Cloudlet Notes</h2>
+        <br>
         <ol>
-        {% for tasklist in tasklists %}
-            <br><li>
-                <!--{{ tasklist.title }}-->
-                <!--<a href="/tasks/{{ tasklist.id }}">{{ tasklist.title }}</a>-->
-               {% filter upper %}<strong> {{ tasklist.title }}</strong>{% endfilter %}
-                <a href="/new_task/{{ tasklist.id }}" >
-                    <!--<input type="button" class="btn btn-primary" value="Add New Task">-->
-                    <button class="glyphicon glyphicon-plus btn btn-primary" title="Add a new task to this task list"></button>
-                </a>
-                <a href="/edit_T_L/{{ tasklist.id }}">
-                    <button class="btn btn-warning glyphicon glyphicon-pencil" title="Edit this Task list"></button>
-                </a>
-                <a href="/remove_T_L/{{ tasklist.id }}" >
-                    <button class="btn btn-danger glyphicon glyphicon-remove" title="Delete this Task list" ></button>
-                </a>
-                <!--<button type="button" class="btn btn-primary btn-lg AddBtn">-->
-                <!--</button>-->
-                <br>
-                <strong>Tasks</strong><ul>
-                {% for task in tasks %}
-                    {% if task.t_l_id == tasklist.id %}
-                        <!--&ndash;&gt; <a href="/notes/{{task.id}}" >{{ task.title }}</a>:<br>{{ task.body }}-->
-                            <br><li><strong>{{ task.title }}</strong>: {{ task.body }}
-                            <a href="/new_note/{{ task.id }}" ><button class="glyphicon glyphicon-plus btn btn-primary" title="Add new note to this task"></button></a>
-                            <a href="/edit_T/{{ task.id }}"><button class="btn btn-warning glyphicon glyphicon-pencil" title="Edit this task"></button></a>
-                            <a href="/remove_T/{{ task.id }}" ><button title="Delete this task" class="btn btn-danger glyphicon glyphicon-remove" ></button></a>
-                            <!--<a href="/new_note/{{ task.id }}" style="text-decoration:none;"><input type="button" class="btn btn-primary" value="Add New Note"></a>-->
-                            </li>
-                        <div class="btn-group"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                            Notes <span class="carret"></span>
-                            </button>
-                            <!--<strong>Notes</strong>-->
-                            <ul class="dropdown-menu" role="menu">
-                                {% for note in notes %}
-                                    {% if note.t_id == task.id %}
-                                         <!--<a href="/notes/{{ note.id }}">{{ note.title }}</a>: {{ note.body }}-->
-                                        <li>&nbsp; <strong>{{ note.title }}</strong>:<br>&nbsp;{{ note.body }}
-                                        <a href="/edit_N/{{ note.id }}"><button title="Edit this note" class="btn btn-warning glyphicon glyphicon-pencil"></button></a>
-                                        <a href="/remove_N/{{ note.id }}"><button class="btn btn-danger glyphicon glyphicon-remove" title="Delete this note"></button></a>
-                                        <hr class="Divider">
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-                </ul>
-            </li>
+        {% for note in cloud_notes %}
+            <br><li><h4>{{note.title}}</h4>
+            &nbsp;
+            <a href="/edit_cloud_note/{{token}}/{{ note.id }}"><button class="btn btn-warning glyphicon glyphicon-pencil" title="Edit"></button></a>
+            <a href="/delete_cloud_note/{{token}}/{{ note.id }}"><button class="btn btn-danger glyphicon glyphicon-remove" title="Delete"></button></a>
+            <br><br>URI: [ {{note.id}} ]<br>Body: {{note.text}}</li>
         {% endfor %}
         </ol>
+    {% else %}
+        <h2>Zero Notes to present !!</h2>
     {% endif %}
 {% endblock %}

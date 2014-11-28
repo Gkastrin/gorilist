@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block title %} Sign in {% endblock %}
+{% block body_block %}
+    <br>
+    <div class="text-center">
+        <form action=" " method="post">
+            {% csrf_token %}
+            <table>
+                {{ form.as_table }}
+            </table>
+            <button type="submit" class="btn btn-primary glyphicon glyphicon-ok" title="OK"></button><br>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,12 @@
+--allow-all-external
+Django==1.7
+dj-database-url==0.3.0
+django-form-utils==1.0.2
+gunicorn==19.1.1
+psycopg2==2.5.1
+static==0.4
+virtualenv==1.11.6
+worldcat==0.3.6
+wsgiref==0.1.2
+dj-static==0.0.6
+requests==2.2.1

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{%block title %} Edit Cloudlet Note {% endblock %}
+{% block body_block %}
+    <form action=" " method="post">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <button type="submit" class="btn btn-primary glyphicon glyphicon-ok" title="OK"></button>
+    </form>
+{% endblock %}
